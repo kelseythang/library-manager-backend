@@ -1,0 +1,12 @@
+=begin
+This is an environment variable that is used by some of the Rake tasks to determine
+if the application is running locally in development, in a test environment, or in production
+=end
+ENV['RACK_ENV'] ||= 'development'
+
+# Require in Gems
+require 'bundler/setup'
+Bundler.require(:default, ENV['RACK_ENV'])
+
+# Require all files in app directory
+require_all 'app'
