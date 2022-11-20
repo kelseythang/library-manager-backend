@@ -10,13 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_013106) do
+ActiveRecord::Schema.define(version: 2022_11_20_200112) do
+
+  create_table "authors", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+  end
 
   create_table "books", force: :cascade do |t|
     t.string "title"
-    t.string "author"
     t.boolean "is_checked_out"
     t.integer "isbn"
+    t.integer "author_id"
+  end
+
+  create_table "books_genres", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "genre_id"
+  end
+
+  create_table "books_members", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "member_id"
+  end
+
+  create_table "checkouts", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "member_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -29,10 +49,7 @@ ActiveRecord::Schema.define(version: 2022_11_20_013106) do
     t.string "last_name"
     t.string "email"
     t.integer "phone_number"
-    t.string "address"
-    t.text "history"
     t.integer "fines"
-    t.integer "book_id"
   end
 
 end
