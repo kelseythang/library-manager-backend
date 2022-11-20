@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_20_200112) do
+ActiveRecord::Schema.define(version: 2022_11_20_215834) do
 
   create_table "authors", force: :cascade do |t|
     t.string "first_name"
@@ -22,10 +22,6 @@ ActiveRecord::Schema.define(version: 2022_11_20_200112) do
     t.boolean "is_checked_out"
     t.integer "isbn"
     t.integer "author_id"
-  end
-
-  create_table "books_genres", force: :cascade do |t|
-    t.integer "book_id"
     t.integer "genre_id"
   end
 

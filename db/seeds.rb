@@ -5,6 +5,11 @@ puts 'Seeding Database'
 # enter here
 
 # genre seeds
+genre_list = ['Fantasy', 'Romance']
+
+genre_list.each do |type|
+  Genre.create( name: type )
+end
 
 # book seeds
 Book.create([
