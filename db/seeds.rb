@@ -1,8 +1,16 @@
 puts 'Seeding Database'
 
 # member seeds
-
-# enter here
+50.times do
+  Member.create(
+    library_card_number: Faker::Number.number(digits: 6),
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.free_email,
+    phone_number: Faker::Number.number(digits: 10),
+    fines: Faker::Number.within(range: 0..10)
+  )
+end
 
 # author seeds
 author_list = [
@@ -20,7 +28,7 @@ end
 genre_list = ['Fantasy', 'Romance', 'Science Fiction']
 
 genre_list.each do |type|
-  Genre.create( name: type )
+  Genre.create(name: type)
 end
 
 # book seeds
@@ -57,14 +65,21 @@ Book.create([
   { title: 'God Emperor of Dune', is_checked_out: false, isbn: 9780593098257, author_id: 4 },
   { title: 'Heretics of Dune', is_checked_out: false, isbn: 9780593098264, author_id: 4 },
   { title: 'Chapterhouse: Dune', is_checked_out: false, isbn: 9780593098271, author_id: 4 },
-  { title: '', is_checked_out: false, isbn: , author_id: 4 },
-  { title: '', is_checked_out: false, isbn: , author_id: 4 },
-  { title: '', is_checked_out: false, isbn: , author_id: 4 },
-  { title: '', is_checked_out: false, isbn: , author_id: 4 },
+  # { title: '', is_checked_out: false, isbn: , author_id: 4 },
+  # { title: '', is_checked_out: false, isbn: , author_id: 4 },
+  # { title: '', is_checked_out: false, isbn: , author_id: 4 },
+  # { title: '', is_checked_out: false, isbn: , author_id: 4 },
   #{ title: '', is_checked_out: false, isbn: , author_id: 2 },
 ])
 
 # books_members join table seeds
-# enter data
+
+
+#  checkouts 
+checkout_list = [[4,1]]
+
+checkout_list.each do |member, book|
+  Checkout.create(member_id: member, book_id: book)
+end
 
 puts 'Seeding Complete'
