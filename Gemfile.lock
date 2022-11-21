@@ -16,6 +16,8 @@ GEM
     concurrent-ruby (1.1.10)
     daemons (1.4.1)
     eventmachine (1.2.7)
+    faker (2.23.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -67,6 +69,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 6.1)
+  faker (~> 2.18)
   pry (~> 0.14.1)
   rack-contrib (~> 2.3)
   rack-cors (~> 1.1)
