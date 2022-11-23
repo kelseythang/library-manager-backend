@@ -24,8 +24,8 @@ author_list.each do |first, last|
   Author.create(first_name: first, last_name: last)
 end
 
-# genre seeds
-genre_list = ['Fantasy', 'Romance', 'Science Fiction']
+# genre seeds A 1, F 2, H 3, M 4, R 5, S 6, T 7
+genre_list = ['Adventure', 'Fantasy', 'Horror', 'Mystery', 'Romance', 'Science Fiction', 'Technology']
 
 genre_list.each do |type|
   Genre.create(name: type)
@@ -33,13 +33,13 @@ end
 
 # book seeds
 Book.create([
-  { title: 'Twilight', is_checked_out: true, isbn: 9780316327336, author_id: 1 },
-  { title: 'New Moon', is_checked_out: false, isbn: 9780316327787, author_id: 1 },
-  { title: 'Eclipse', is_checked_out: false, isbn: 9780316328142, author_id: 1 },
-  { title: 'Breaking Dawn', is_checked_out: false, isbn: 9780316067928, author_id: 1 },
-  { title: 'The Host', is_checked_out: false, isbn: 9780316068055, author_id: 1 },
-  { title: 'The Chemist', is_checked_out: false, isbn: 9780316387842, author_id: 1 },
-  { title: 'Midnight Sun', is_checked_out: false, isbn: 9780316629454, author_id: 1 },
+  { title: 'Twilight', is_checked_out: true, isbn: 9780316327336, author_id: 1, genre_id: 5 },
+  { title: 'New Moon', is_checked_out: false, isbn: 9780316327787, author_id: 1, genre_id: 5 },
+  { title: 'Eclipse', is_checked_out: false, isbn: 9780316328142, author_id: 1, genre_id: 5 },
+  { title: 'Breaking Dawn', is_checked_out: false, isbn: 9780316067928, author_id: 1, genre_id: 5 },
+  { title: 'The Host', is_checked_out: false, isbn: 9780316068055, author_id: 1, genre_id: 5 },
+  { title: 'The Chemist', is_checked_out: false, isbn: 9780316387842, author_id: 1, genre_id: 5 },
+  { title: 'Midnight Sun', is_checked_out: false, isbn: 9780316629454, author_id: 1, genre_id: 5 },
   { title: 'Life and Death: Twilight Reimagined', is_checked_out: false, isbn: 9780316300865, author_id: 1 },
   { title: "Harry Potter and the Philosopher's Stone", is_checked_out: false, isbn: 9780590353403, author_id: 2 },
   { title: 'Harry Potter and the Chamber of Secrets', is_checked_out: false, isbn: 9780439064873, author_id: 2 },
@@ -73,7 +73,11 @@ Book.create([
 ])
 
 # books_members join table seeds
+book_history = [[1, 1],[1,2],[1,3]]
 
+book_history.each do |member, book|
+  Record.create(member_id: member, book_id: book)
+end
 
 #  checkouts 
 checkout_list = [[4,1]]
