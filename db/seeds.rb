@@ -73,7 +73,7 @@ Book.create([
 ])
 
 # books_members join table seeds
-book_history = [[1, 1],[1,2],[1,3]]
+book_history = [[1, 1],[1, 2],[1, 3]]
 
 book_history.each do |member, book|
   Record.create(member_id: member, book_id: book)

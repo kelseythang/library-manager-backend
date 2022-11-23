@@ -14,10 +14,13 @@ class ApplicationController < Sinatra::Base
 
   get '/books/:id' do
     book = Book.find(params[:id])
-    books.to_json(only: [:id, :title, :is_checked_out, :isbn], 
+    book.to_json(only: [:id, :title, :is_checked_out, :isbn], 
       include: { 
         author: { only: [:first_name, :last_name] },
-        genre: { only: [:name] } 
+        genre: { only: [:name] },
+        checkout: { only: [:id], include: {
+          member: { only: [:first_name, :last_name] }
+        } }
       }
     )
   end
@@ -49,6 +52,12 @@ class ApplicationController < Sinatra::Base
   get '/genres' do
     genres = Genre.all
     genres.to_json(include: :books)
+  end
+
+  # checkouts routes
+  get '/checkouts' do
+    checkouts = Checkout.all
+    checkouts.to_json
   end
 
 end
