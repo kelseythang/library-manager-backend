@@ -79,7 +79,7 @@ checkout_history.each do |member, book|
   Record.create(member_id: member, book_id: book)
 end
 
-#  current checkouts join table
+#  current checkouts join table seeds
 checkout_list = [[4, 1]]
 
 checkout_list.each do |member, book|
