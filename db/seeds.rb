@@ -32,9 +32,6 @@ checkout_list = [
 
 checkout_list.each do |book, member|
   Checkout.create(book_id: book, member_id: member)
-end
-
-checkout_list.each do |book, member|
   Record.create(book_id: book, member_id: member)
 end
 
