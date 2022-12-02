@@ -77,11 +77,12 @@ class ApplicationController < Sinatra::Base
 
   post '/members' do
     member = Member.create(
-      library_card_number: params[:library_card_number],
+      library_card_number: Member.generate_new_id,
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
       phone_number: params[:phone_number],
+      fines: params[:fines]
     )
     member.to_json
   end
