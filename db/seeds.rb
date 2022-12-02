@@ -15,8 +15,8 @@ end
 # records join table seeds
 200.times do (
   Record.create(
-    member_id: Faker::Number.within(range: 1..50),
-    book_id: Faker::Number.within(range: 1..100)
+    book_id: Faker::Number.within(range: 1..100),
+    member_id: Faker::Number.within(range: 1..50)
   )
 )
 end
@@ -32,6 +32,10 @@ checkout_list = [
 
 checkout_list.each do |book, member|
   Checkout.create(book_id: book, member_id: member)
+end
+
+checkout_list.each do |book, member|
+  Record.create(book_id: book, member_id: member)
 end
 
 # author seeds

@@ -74,6 +74,24 @@ class ApplicationController < Sinatra::Base
       }
     )
   end
+
+  post '/members' do
+    member = Member.create(
+      library_card_number: params[:library_card_number],
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email: params[:email],
+      phone_number: params[:phone_number],
+    )
+    member.to_json
+  end
+  
+  delete '/members/:id' do
+    member = Member.find(params[:id])
+    member.destroy
+    member.to_json
+  end
+
  
   # author routes
   get '/authors' do
