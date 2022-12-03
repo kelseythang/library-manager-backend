@@ -7,7 +7,7 @@ puts 'Seeding Database'
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.free_email,
-    phone_number: Faker::Number.number(digits: 10),
+    phone_number: Faker::Number.number(digits: 10).to_s.insert(0, '(').insert(4, ')').insert(5,' ').insert(9,'-'),
     fines: Faker::Number.within(range: 0..10)
   )
 end

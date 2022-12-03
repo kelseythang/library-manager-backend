@@ -121,7 +121,7 @@ class ApplicationController < Sinatra::Base
   # checkouts routes
   get '/checkouts' do
     checkouts = Checkout.all
-    checkouts.to_json( only: [],
+    checkouts.to_json( only: [:created_at],
       include: {
         book: { only: [:title] },
         member: { only: [:first_name, :last_name] }
