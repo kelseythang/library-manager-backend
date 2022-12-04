@@ -1,9 +1,9 @@
 class Member < ActiveRecord::Base
   # current checkouts
-  has_many :checkouts
+  has_many :checkouts, dependent: :destroy
   has_many :books, through: :checkouts
   # account checkout history
-  has_many :records
+  has_many :records , dependent: :destroy
   has_many :books, through: :records
 
   # library card number generator
