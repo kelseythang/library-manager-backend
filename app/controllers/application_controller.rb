@@ -86,6 +86,31 @@ class ApplicationController < Sinatra::Base
     )
     member.to_json
   end
+
+  patch '/members/:id' do
+    member = Member.find(params[:id])
+    member.update(
+      fines: params[:fines]
+    )
+    member.to_json(
+      include: {
+        records: { only: [:id, :created_at], 
+          include: {
+            book: { only: [:title], 
+              include: {
+                author: { only: [:first_name, :last_name] }
+              } }
+          } },
+        checkouts: { only: [:id, :created_at], 
+          include: {
+            book: { only: [:title], 
+              include: {
+                author: { only: [:first_name, :last_name] }
+              } }
+          } }
+      }
+    )
+  end
   
   delete '/members/:id' do
     member = Member.find(params[:id])

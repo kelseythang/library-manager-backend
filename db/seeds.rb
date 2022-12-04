@@ -10,7 +10,7 @@ fines = Random.new
     last_name: Faker::Name.last_name,
     email: Faker::Internet.free_email,
     phone_number: Faker::Number.number(digits: 10).to_s.insert(0, '(').insert(4, ')').insert(5,' ').insert(9,'-'),
-    fines: sprintf('%.2f',Faker::Number.between(from: 0.0, to: 10.0))
+    fines: sprintf('%.2f', Faker::Number.between(from: 0.0, to: 10.0))
   )
 end
 
