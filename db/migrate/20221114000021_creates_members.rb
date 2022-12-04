@@ -6,7 +6,7 @@ class CreatesMembers < ActiveRecord::Migration[6.1]
       t.string :last_name
       t.string :email
       t.string :phone_number
-      t.integer :fines
+      t.decimal :fines
       t.timestamps
     end
   end

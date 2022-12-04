@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_11_20_200112) do
     t.string "last_name"
     t.string "email"
     t.string "phone_number"
-    t.integer "fines"
+    t.decimal "fines"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

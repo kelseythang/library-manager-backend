@@ -35,14 +35,14 @@ class ApplicationController < Sinatra::Base
     members = Member.all
     members.to_json(
       include: {
-        records: { only: [:id], 
+        records: { only: [:id, :created_at], 
           include: {
             book: { only: [:title], 
               include: {
                 author: { only: [:first_name, :last_name] }
               } }
           } },
-        checkouts: { only: [:id], 
+        checkouts: { only: [:id, :created_at], 
           include: {
             book: { only: [:title], 
               include: {
@@ -57,14 +57,14 @@ class ApplicationController < Sinatra::Base
     member = Member.find(params[:id])
     member.to_json(
       include: {
-        records: { only: [:id], 
+        records: { only: [:id, :created_at], 
           include: {
             book: { only: [:title], 
               include: {
                 author: { only: [:first_name, :last_name] }
               } }
           } },
-        checkouts: { only: [:id], 
+        checkouts: { only: [:id, :created_at], 
           include: {
             book: { only: [:title], 
               include: {
