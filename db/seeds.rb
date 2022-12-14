@@ -1,15 +1,13 @@
 puts 'Seeding Database'
 
 # 50 initial member seeds
-fines = Random.new
-
 50.times do
   Member.create(
     library_card_number: Faker::Number.number(digits: 6),
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.free_email,
-    phone_number: Faker::Number.number(digits: 10).to_s.insert(0, '(').insert(4, ')').insert(5,' ').insert(9,'-'),
+    phone_number: "+1 #{Faker::Number.number(digits: 10).to_s.insert(0, '(').insert(4, ')').insert(5,' ').insert(9,'-')}",
     fines: sprintf('%.2f', Faker::Number.between(from: 0.0, to: 10.0))
   )
 end

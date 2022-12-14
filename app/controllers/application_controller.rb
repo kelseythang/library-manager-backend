@@ -8,9 +8,9 @@ class ApplicationController < Sinatra::Base
       include: { 
         author: { only: [:first_name, :last_name] },
         genre: { only: [:name] },
-        checkout: { only: [], 
+        checkout: { only: [:id], 
           include: {
-            member: { only: [:first_name, :last_name] }
+            member: { only: [:id, :first_name, :last_name] }
           } }
       }
     )
@@ -22,12 +22,41 @@ class ApplicationController < Sinatra::Base
       include: { 
         author: { only: [:first_name, :last_name] },
         genre: { only: [:name] },
-        checkout: { only: [], 
+        checkout: { only: [:id], 
           include: {
             member: { only: [:first_name, :last_name] }
           } }
       }
     )
+  end
+
+  patch '/books/:id' do
+    book = Book.find(params[:id])
+    book.update(
+      is_checked_out: params[:is_checked_out]
+    )
+    book.to_json(only: [:id, :title, :is_checked_out, :isbn], 
+      include: { 
+        author: { only: [:first_name, :last_name] },
+        genre: { only: [:name] },
+        checkout: { only: [:id], 
+          include: {
+            member: { only: [:first_name, :last_name] }
+          } }
+      }
+    )
+  end
+
+  post '/books' do
+    book = Book.create(
+      title: params[:title],
+      isbn: params[:isbn],
+      is_checked_out: params[:is_checked_out],
+      author_id: params[:author_id],
+      genre_id: params[:genre_id],
+      checkout: params[:checkout],
+    )
+    book.to_json
   end
   
   # ----------------- member routes ----------------- 
@@ -44,7 +73,7 @@ class ApplicationController < Sinatra::Base
           } },
         checkouts: { only: [:id, :created_at], 
           include: {
-            book: { only: [:title], 
+            book: { only: [:id, :title], 
               include: {
                 author: { only: [:first_name, :last_name] }
               } }
@@ -66,7 +95,7 @@ class ApplicationController < Sinatra::Base
           } },
         checkouts: { only: [:id, :created_at], 
           include: {
-            book: { only: [:title], 
+            book: { only: [:id, :title], 
               include: {
                 author: { only: [:first_name, :last_name] }
               } }
@@ -103,7 +132,7 @@ class ApplicationController < Sinatra::Base
           } },
         checkouts: { only: [:id, :created_at], 
           include: {
-            book: { only: [:title], 
+            book: { only: [:id, :title], 
               include: {
                 author: { only: [:first_name, :last_name] }
               } }
@@ -121,10 +150,10 @@ class ApplicationController < Sinatra::Base
   # ----------------- checkouts routes ----------------- 
   get '/checkouts' do
     checkouts = Checkout.all
-    checkouts.to_json( only: [:created_at],
+    checkouts.to_json( only: [:id, :created_at],
       include: {
-        book: { only: [:title] },
-        member: { only: [:first_name, :last_name] }
+        book: { only: [:id, :title] },
+        member: { only: [:id, :first_name, :last_name] }
       }
     )
   end
