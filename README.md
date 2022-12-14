@@ -20,10 +20,8 @@ Enter the following command to launch the backend server on port 9292:
 
 ## Routes
 ### Checkouts - CRUD: Read, Delete
-**GET**
-/checkouts
-**DELETE**
-/checkouts/:id
+**GET** /checkouts \
+**DELETE** /checkouts/:id
 ### Books - CRUD: Create, Read, Update
 ### Members - CRUD: Create, Read, Update, Delete
 ### Authors - CRUD: Read
