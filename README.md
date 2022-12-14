@@ -23,10 +23,18 @@ Enter the following command to launch the backend server on port 9292:
 **GET** /checkouts \
 **DELETE** /checkouts/:id
 ### Books - CRUD: Create, Read, Update
+**GET** /books and books/:id \
+**POST** /books \
+**PATCH** /books/:id
 ### Members - CRUD: Create, Read, Update, Delete
+**GET** /members and members/:id \
+**POST** /members \
+**PATCH** /members/:id -limited to fines \
+**DELTE** /members/:id \
 ### Authors - CRUD: Read
+**GET** /authors
 ### Genres - CRUD: Read
-
+**GET** /genres
 ## Notes
 Enter the following commands to reset the database and seed data:
 1. bundle exec rake db:purge
