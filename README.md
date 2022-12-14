@@ -37,7 +37,7 @@ Fetch requests are routed to: http://localhost:9292
 ### Members - CRUD: Create, Read, Update, Delete
 **GET** /members and members/:id \
 **POST** /members \
-**PATCH** /members/:id -limited to fines \
+**PATCH** /members/:id \
 **DELETE** /members/:id 
 ### Authors - CRUD: Read
 **GET** /authors
