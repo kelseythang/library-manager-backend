@@ -14,7 +14,7 @@ Database is setup to use the following seed data:
 * 100 Library Books With Accurate Author and ISBN Information
 
 ## Database Relations
-![ERD](https://imgur.com/I3HyrbW)
+![ERD](https://imgur.com/7yRCA3B.png)
 
 ## Database Installation
 Enter the following commands to setup the database with the seed data:
