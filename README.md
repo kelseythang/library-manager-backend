@@ -33,7 +33,7 @@ Fetch requests are routed to: http://localhost:9292
 ### Books - CRUD: Create, Read, Update
 **GET** /books and books/:id \
 **POST** /books \
-**PATCH** /books/:id
+**PATCH** /books/:id -limited to is_checked_out boolean
 ### Members - CRUD: Create, Read, Update, Delete
 **GET** /members and members/:id \
 **POST** /members \

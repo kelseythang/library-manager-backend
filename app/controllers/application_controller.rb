@@ -1,7 +1,24 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
-  #  ----------------- books routes ----------------- 
+  # ---------------- checkouts routes ---------------- #
+  get '/checkouts' do
+    checkouts = Checkout.all
+    checkouts.to_json( only: [:id, :created_at],
+      include: {
+        book: { only: [:id, :title] },
+        member: { only: [:id, :first_name, :last_name] }
+      }
+    )
+  end
+
+  delete '/checkouts/:id' do
+    checkout = Checkout.find(params[:id])
+    checkout.destroy
+    checkout.to_json
+  end
+
+  # ------------------- books routes ----------------- # 
   get '/books' do
     books = Book.all.order(:title)
     books.to_json(only: [:id, :title, :is_checked_out, :isbn], 
@@ -11,7 +28,8 @@ class ApplicationController < Sinatra::Base
         checkout: { only: [:id], 
           include: {
             member: { only: [:id, :first_name, :last_name] }
-          } }
+          } 
+        }
       }
     )
   end
@@ -24,10 +42,23 @@ class ApplicationController < Sinatra::Base
         genre: { only: [:name] },
         checkout: { only: [:id], 
           include: {
-            member: { only: [:first_name, :last_name] }
-          } }
+            member: { only: [:id, :first_name, :last_name] }
+          } 
+        }
       }
     )
+  end
+
+  post '/books' do
+    book = Book.create(
+      title: params[:title],
+      isbn: params[:isbn],
+      is_checked_out: params[:is_checked_out],
+      author_id: params[:author_id],
+      genre_id: params[:genre_id],
+      checkout: params[:checkout]
+    )
+    book.to_json
   end
 
   patch '/books/:id' do
@@ -41,25 +72,14 @@ class ApplicationController < Sinatra::Base
         genre: { only: [:name] },
         checkout: { only: [:id], 
           include: {
-            member: { only: [:first_name, :last_name] }
-          } }
+            member: { only: [:id, :first_name, :last_name] }
+          } 
+        }
       }
     )
   end
-
-  post '/books' do
-    book = Book.create(
-      title: params[:title],
-      isbn: params[:isbn],
-      is_checked_out: params[:is_checked_out],
-      author_id: params[:author_id],
-      genre_id: params[:genre_id],
-      checkout: params[:checkout],
-    )
-    book.to_json
-  end
   
-  # ----------------- member routes ----------------- 
+  # ------------------ members routes ---------------- #
   get '/members' do
     members = Member.all
     members.to_json(
@@ -76,8 +96,10 @@ class ApplicationController < Sinatra::Base
             book: { only: [:id, :title], 
               include: {
                 author: { only: [:first_name, :last_name] }
-              } }
-          } }
+              } 
+            }
+          } 
+        }
       }
     )
   end
@@ -91,15 +113,19 @@ class ApplicationController < Sinatra::Base
             book: { only: [:title], 
               include: {
                 author: { only: [:first_name, :last_name] }
-              } }
-          } },
+              } 
+            }
+          } 
+        },
         checkouts: { only: [:id, :created_at], 
           include: {
             book: { only: [:id, :title], 
               include: {
                 author: { only: [:first_name, :last_name] }
-              } }
-          } }
+              } 
+            }
+          } 
+        }
       }
     )
   end
@@ -128,15 +154,19 @@ class ApplicationController < Sinatra::Base
             book: { only: [:title], 
               include: {
                 author: { only: [:first_name, :last_name] }
-              } }
-          } },
+              } 
+            }
+          } 
+        },
         checkouts: { only: [:id, :created_at], 
           include: {
             book: { only: [:id, :title], 
               include: {
                 author: { only: [:first_name, :last_name] }
-              } }
-          } }
+              }
+            }
+          } 
+        }
       }
     )
   end
@@ -146,25 +176,8 @@ class ApplicationController < Sinatra::Base
     member.destroy
     member.to_json
   end
-
-  # ----------------- checkouts routes ----------------- 
-  get '/checkouts' do
-    checkouts = Checkout.all
-    checkouts.to_json( only: [:id, :created_at],
-      include: {
-        book: { only: [:id, :title] },
-        member: { only: [:id, :first_name, :last_name] }
-      }
-    )
-  end
-
-  delete '/checkouts/:id' do
-    checkout = Checkout.find(params[:id])
-    checkout.destroy
-    checkout.to_json
-  end
  
-  # ----------------- author routes ----------------- 
+  # ------------------ authors routes ---------------- # 
   get '/authors' do
     author = Author.all.order(:last_name)
     author.to_json(include: { books: { only: [:title, :isbn] } })
@@ -175,17 +188,17 @@ class ApplicationController < Sinatra::Base
     author.to_json(include: { books: { only: [:title, :isbn] } })
   end
 
-  # ----------------- genre routes ----------------- 
+  # ------------------ genres routes ----------------- # 
   get '/genres' do
     genres = Genre.all
     genres.to_json(
       include: {
         books: { only: [:id, :title, :isbn],
-        include: {
-          author: { only: [:first_name, :last_name] }
-        } }
+          include: {
+            author: { only: [:first_name, :last_name] }
+          } 
+        }
       }
     )
   end
-
 end
