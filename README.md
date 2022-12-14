@@ -1,13 +1,20 @@
 # Library Manager - Backend
 
 ## Project Overview
+Project is built using the following:
+* Ruby
+* Active Record
+* SQLite3
 
 ## Database Overview
-Database is setup to use an initial set of seed data. The seed data consists of the following:
+Database is setup to use the following seed data:
 * 50 Members
 * 200 Randomized Checkout History Records
 * 25 Curent Checkouts
 * 100 Library Books With Accurate Author and ISBN Information
+
+## Database Relations
+![ERD](https://imgur.com/a/7uHhjuS)
 
 ## Database Installation
 Enter the following commands to setup the database with the seed data:
