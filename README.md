@@ -19,6 +19,7 @@ Enter the following command to launch the backend server on port 9292:
 * bundle exec rake server
 
 ## Routes
+Fetch requests are routed to: http://localhost:9292
 ### Checkouts - CRUD: Read, Delete
 **GET** /checkouts \
 **DELETE** /checkouts/:id
@@ -30,11 +31,12 @@ Enter the following command to launch the backend server on port 9292:
 **GET** /members and members/:id \
 **POST** /members \
 **PATCH** /members/:id -limited to fines \
-**DELTE** /members/:id \
+**DELETE** /members/:id 
 ### Authors - CRUD: Read
 **GET** /authors
 ### Genres - CRUD: Read
 **GET** /genres
+
 ## Notes
 Enter the following commands to reset the database and seed data:
 1. bundle exec rake db:purge
