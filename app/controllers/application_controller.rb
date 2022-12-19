@@ -152,23 +152,22 @@ class ApplicationController < Sinatra::Base
       phone_number: params[:phone_number],
       fines: params[:fines]
     )
-    member.to_json(
+    updated_members = Member.all
+    updated_members.to_json(
       include: {
         records: { only: [:id, :created_at], 
           include: {
             book: { only: [:title], 
               include: {
                 author: { only: [:first_name, :last_name] }
-              } 
-            }
-          } 
-        },
+              } }
+          } },
         checkouts: { only: [:id, :created_at], 
           include: {
             book: { only: [:id, :title], 
               include: {
                 author: { only: [:first_name, :last_name] }
-              }
+              } 
             }
           } 
         }
@@ -179,7 +178,27 @@ class ApplicationController < Sinatra::Base
   delete '/members/:id' do
     member = Member.find(params[:id])
     member.destroy
-    member.to_json
+    updated_members = Member.all
+    updated_members.to_json(
+      include: {
+        records: { only: [:id, :created_at], 
+          include: {
+            book: { only: [:title], 
+              include: {
+                author: { only: [:first_name, :last_name] }
+              } }
+          } },
+        checkouts: { only: [:id, :created_at], 
+          include: {
+            book: { only: [:id, :title], 
+              include: {
+                author: { only: [:first_name, :last_name] }
+              } 
+            }
+          } 
+        }
+      }
+    )
   end
  
   # ------------------ authors routes ---------------- # 
