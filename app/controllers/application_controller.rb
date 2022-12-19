@@ -1,6 +1,6 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
-  
+
   # ---------------- checkouts routes ---------------- #
   get '/checkouts' do
     checkouts = Checkout.all
@@ -13,9 +13,17 @@ class ApplicationController < Sinatra::Base
   end
 
   delete '/checkouts/:id' do
-    checkout = Checkout.find(params[:id])
+    book = Book.joins(:checkout).where(checkout: { id: params[:id] })
+    book.update(is_checked_out: false)
+    checkout = Checkout.find(params[:id])   
     checkout.destroy
-    checkout.to_json
+    checkouts = Checkout.all
+    checkouts.to_json( only: [:id, :created_at],
+      include: {
+        book: { only: [:id, :title] },
+        member: { only: [:id, :first_name, :last_name] }
+      }
+    )
   end
 
   # ------------------- books routes ----------------- # 
